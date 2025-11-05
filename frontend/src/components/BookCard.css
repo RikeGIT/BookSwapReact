@@ -1,0 +1,82 @@
+.book-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s;
+}
+
+.book-card:hover {
+  transform: translateY(-5px);
+}
+
+.book-card-content {
+  padding: 1rem;
+}
+
+.book-card-content h3 {
+  margin: 0 0 0.5rem 0;
+  color: #333;
+}
+
+.book-author {
+  font-style: italic;
+  color: #777;
+  margin: 0 0 1rem 0;
+}
+
+.book-description {
+  font-size: 0.9rem;
+  color: #555;
+  line-height: 1.4;
+}
+
+.book-card-footer {
+  padding: 1rem;
+  border-top: 1px solid #f0f0f0;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.swap-button,
+.edit-button,
+.delete-button {
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  text-decoration: none;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.swap-button {
+  background-color: #17a2b8; /* Info blue */
+}
+
+.swap-button:hover {
+  background-color: #138496;
+}
+
+.edit-button {
+  background-color: #ffc107; /* Warning yellow */
+  color: #212529;
+}
+
+.edit-button:hover {
+  background-color: #e0a800;
+}
+
+.delete-button {
+  background-color: #dc3545; /* Danger red */
+}
+
+.delete-button:hover {
+  background-color: #c82333;
+}
