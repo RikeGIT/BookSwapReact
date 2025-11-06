@@ -4,6 +4,7 @@ import { useAuth } from '../hooks/useAuth';
 import { api } from '../lib/axios';
 import axios from 'axios';
 import './LoginPage.css';
+import logo from '../assets/images/logo-bookswap.png';
 
 export function LoginPage() {
   const [username, setUsername] = useState('');
@@ -37,9 +38,11 @@ export function LoginPage() {
   };
 
   return (
+    <>
     <div className="login-container">
       <form onSubmit={handleSubmit} className="login-form">
-        <h2>Login</h2>
+        <img className="logo" src={logo} alt="logo-bookswap" />
+        <h2>Bem vindo ao Bookswap</h2>
         {error && <p className="error-message">{error}</p>}
         <div className="input-group">
           <label htmlFor="username">Username</label>
@@ -62,7 +65,9 @@ export function LoginPage() {
           />
         </div>
         <button type="submit">Login</button>
+        <label className='link-register'>Não tem uma conta? <a href="#">Registre-se</a></label>
       </form>
     </div>
+    </>
   );
 }
