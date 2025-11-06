@@ -18,18 +18,33 @@ export function LoginPage() {
     setError('');
 
     try {
-      const response = await api.post('/token/', {
+      // Use axios directly for auth endpoint so the default Authorization header
+      // (if present) from the api instance is NOT sent. Sending an invalid/expired
+      // token in the Authorization header can make the token-obtain view fail
+      // with "Given token not valid for any token type" before credentials are checked.
+      const response = await axios.post(`${api.defaults.baseURL}/token/`, {
         username,
         password,
       });
-      
+
       const { access } = response.data;
       await signIn(access);
       navigate('/'); // Redirect to home page after login
     } catch (err) {
       if (axios.isAxiosError(err) && err.response) {
-        const errorMessage = err.response.data.detail || 'Failed to login. Please check your credentials.';
-        setError(errorMessage);
+        const data = err.response.data;
+        console.error('login error full:', data);
+        // Prefer messages array if present, otherwise detail
+        if (data.messages && Array.isArray(data.messages)) {
+          const msgs = data.messages
+            .map((m: any) => (m.message ? `${m.token_type || ''}: ${m.message}` : JSON.stringify(m)))
+            .join(' ');
+          setError(msgs);
+        } else if (data.detail) {
+          setError(String(data.detail));
+        } else {
+          setError('Failed to login. Please check your credentials.');
+        }
       } else {
         setError('An unexpected error occurred. Please try again.');
       }
@@ -65,7 +80,7 @@ export function LoginPage() {
           />
         </div>
         <button type="submit">Login</button>
-        <label className='link-register'>Não tem uma conta? <a href="#">Registre-se</a></label>
+        <label className='link-register'>Não tem uma conta? <a href="register">Registre-se</a></label>
       </form>
     </div>
     </>
